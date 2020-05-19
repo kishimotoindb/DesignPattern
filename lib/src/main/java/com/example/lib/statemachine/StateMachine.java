@@ -48,7 +48,7 @@ public class StateMachine {
     }
 
     /*
-     * 状态机模式，采用数组实现
+     * 状态机模式，采用数组实现，一维数组
      */
     static class MarioArrSM {
         State[] transitionTable = new State[]{
@@ -59,6 +59,26 @@ public class StateMachine {
 
         int[] scoreTable = new int[]{100, 200, 300};
 
+        int mScore;
+        State mState = State.SMALL;
+
+        void eatMushroom() {
+            mState = transitionTable[mState.ordinal()];
+        }
+
+        void eatCoin() {
+            mScore += scoreTable[mState.ordinal()];
+        }
+    }
+
+    static class MarioArrSM2{
+        State[] transitionTable = new State[]{
+                State.MIDDLE,
+                State.BIG,
+                null
+        };
+
+        int[] scoreTable = new int[]{100, 200, 300};
 
         int mScore;
         State mState = State.SMALL;
