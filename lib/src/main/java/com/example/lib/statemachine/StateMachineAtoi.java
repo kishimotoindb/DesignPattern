@@ -32,7 +32,7 @@ public class StateMachineAtoi {
 //        System.out.println("ret=" + ret);
     }
 
-    private static int convert(String source) {
+    private static int convert1(String source) {
         if (source == null || source.trim().length() == 0) {
             return 0;
         }
@@ -67,7 +67,57 @@ public class StateMachineAtoi {
         return minus ? -ret : ret;
     }
 
+    enum State {
+        START, SIGNED, IN_NUMBER, END
+    }
+
+
+    State[][] states = new State[][]{
+            //           " "             "-,+"         "number"     "other"
+            /*start*/  {State.START, State.SIGNED, State.IN_NUMBER, State.END},
+            /*sign */  {State.END, State.END, State.IN_NUMBER, State.END},
+            /*num  */  {State.END, State.END, State.IN_NUMBER, State.END},
+            /*other*/  {State.END, State.END, State.END, State.END},
+    };
+
+    private static int convert2(String source) {
+        State state = State.START;
+        int number = 0;
+        for (int i = 0; i < source.length(); i++) {
+            int col = getCol(source.charAt(i));
+            int row = getRow(state);
+
+        }
+        return 0;
+    }
+
+    private static int getRow(State state) {
+        switch (state) {
+            case START:
+                return 0;
+            case SIGNED:
+                return 1;
+            case IN_NUMBER:
+                return 2;
+            case END:
+                return 3;
+        }
+    }
+
+    static int getCol(char c) {
+        if (c == ' ') {
+            return 0;
+        } else if (c == '-' || c == '+') {
+            return 1;
+        } else if (c > '0' && c < '9') {
+            return 2;
+        } else {
+            return 3;
+        }
+    }
+
     private static boolean overflow(int ret, int single) {
         return false;
     }
+
 }
